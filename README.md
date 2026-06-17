@@ -224,31 +224,6 @@ training_loss.png
 
 ---
 
-## Limitations
-
-Current implementation:
-
-* Does not solve full Navier–Stokes residuals
-* Does not predict pressure fields
-* Assumes Newtonian blood rheology
-* Assumes rigid vessel walls
-* Uses idealized geometries
-
-Therefore, this work should be interpreted as a hard-constrained neural surrogate benchmark rather than a complete Navier–Stokes PINN solver.
-
----
-
-## Future Work
-
-Potential extensions include:
-
-* Full PINN residual formulation
-* Pressure prediction
-* Wall shear stress estimation
-* Patient-specific geometries
-* Pulsatile flow simulation
-* Fluid-structure interaction
-* MRI-informed training
 
 ---
 
