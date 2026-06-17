@@ -1,31 +1,7 @@
 # ===============================================================
 # STENOSIS PINN v5 — PRIMITIVE VARIABLES, PROPERLY FIXED
-#
-# Lessons from v2/v3/v4 failures:
-#
-# v2: Wrong pressure scale (ρU² → p* ≈ 1/Re → near zero)
-# v3: Correct pressure scale but u_r shape fn zeros at boundaries
-#     → network learns u_r≈0 everywhere → no mass redistribution
-# v4: Stream function BC wrong (ψ_wall not constant since R*(z*) varies)
-#     → momentum loss diverges (1.8e+0)
-#
-# v5 FIXES:
-# 1. Correct pressure scale: P_sc = μ U_max / R0  (viscous, O(1) dp/dz)
-# 2. Mapped coordinates: solve in (ξ, z*) where ξ = r*/R*(z*)  ∈ [0,1]
-#    - Wall BC becomes ξ=1: trivially hard-enforced
-#    - Axis BC becomes ξ=0: trivially hard-enforced
-#    - Geometry is RECTANGULAR domain [0,1]×[0,1] — no rejection sampling
-#    - Continuity in mapped coords is explicit and well-conditioned
-# 3. Output transform:
-#    U(ξ,z*) = (1-ξ²) · u_core    → u_z*, zero at ξ=1 ✓
-#    V(ξ,z*) = ξ(1-ξ) · v_core   → u_r*, zero at ξ=0 and ξ=1 ✓
-#    BUT V is initialized to produce the CORRECT continuity-implied
-#    radial velocity from the start via a bias term.
-# 4. Continuity enforced via a mapped-coordinate divergence that is
-#    analytically well-conditioned (no 1/r singularity at axis)
-# 5. Pressure initialized to linear drop via a separate output head
-#    that is shifted by a learned correction only.
 # ===============================================================
+
 
 # !pip install torch numpy matplotlib --quiet
 
